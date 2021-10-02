@@ -1,0 +1,71 @@
+#imports
+import Collections;
+
+#consts
+const TESTNUMBER = 5;
+
+#functions
+sum_func = lambda(a, b){
+  return a + b;
+};
+
+main = lambda(arglist, arglength){
+  println(arglist);
+  println(arglength);
+
+  #if then else with args
+  if (arglist != null) then{
+    echo_string = arglist[0];
+    arg_count = int(arglist[1]);
+    arg_step = int(arglist[2]);
+
+    #Hello World
+    println(echo_string);
+    println();
+    println();
+
+    print("Target: ");
+    println(arg_count);
+    print("Counting Up By ");
+    print(arg_step);
+    println(".... maybe");
+
+    #Loops
+    let loop(i = 0, count = arg_count, step = arg_step){
+      println(i);
+      if (i < count && step > 0) then{
+        i = i + step;
+        loop(i, count, step);
+      };
+    };
+
+    #Lists
+    list = [1, 2, 3, 4, 5];
+    println(list);
+    small_list = list[1, 3, 4];
+    println(small_list);
+
+    #import + linked list
+    ll = LinkedList();
+    let loop(i = 0){
+      AddToHead(ll, arglist[i]);
+      i = i + 1;
+      if i < arglength then{
+        loop(i, ll);
+      };
+    };
+
+    println("Printing a linked list of your command line args");
+    PrintLinkedList(ll);
+    println("Printing value at index 0");
+    println(GetValAt(ll, 0));
+    println("Removing the value at index 1");
+    println(RemoveNodeAt(ll, 1));
+    println("Updated linkedlist");
+    PrintLinkedList(ll);
+  } else {
+    println("You ran the test program without any arguments");
+    println("Now try running python2.7 NP test.ast --args [string] [int] [int] ");
+    println("String will be echoed, int a should be ~2-3x larger than int 2"); 
+  };
+};
