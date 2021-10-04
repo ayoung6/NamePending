@@ -1,6 +1,8 @@
 # NamePending
 A quick selfstudy into how language works
 
+Runs off a main function
+
 run the test file with `python2.7 NP.py test.np -r -a "Hello World!" 10 1`
 
 ## Hello World!
