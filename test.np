@@ -1,7 +1,7 @@
-#imports
-import Collections;
+# imports
+import collections;
 
-#consts
+# consts
 const TESTNUMBER = 5;
 
 #functions
@@ -9,7 +9,7 @@ sum_func = lambda(a, b){
   return a + b;
 };
 
-main = lambda(arglist, arglength){
+main = lambda(){
   println(arglist);
   println(arglength);
 
@@ -69,3 +69,5 @@ main = lambda(arglist, arglength){
     println("String will be echoed, int a should be ~2-3x larger than int 2"); 
   };
 };
+
+main();
