@@ -1,0 +1,44 @@
+LinkedList = lambda(){
+	ll = ['__HEAD__', null];
+	return ll;
+};
+__Node = lambda(value){
+	return [value, null];
+};
+RemoveNode = lambda(ll, link){
+	let delve(count = 0, node = ll){
+		if node[1] == null then{
+			return ll;
+		};
+		if ((count + 1) == link) then{
+			println('Remove Condition');
+			temp = node[1];
+			node[1] = temp[1];
+			return ll;
+		};
+		delve(count + 1, node[1]);
+	};
+};
+GetValAt = lambda(ll, link){
+	let delve(layer = link) 
+		if layer >= 1 then {
+			ll = ll[1];
+			delve(layer - 1);
+		};
+	node = ll[1];
+	return node[0];
+};
+AddToHead = lambda(ll, value){
+	node = __Node(value);
+	node[1] = ll[1];
+	ll[1] = node;
+	return ll;
+};
+PrintLinkedList = lambda(ll){
+	let loop(list = ll[1])
+		if list[1] == null then println(list[0]) else{
+			print(list[0]);
+			print(' -> ');
+			loop(list[1]);
+		};
+};
