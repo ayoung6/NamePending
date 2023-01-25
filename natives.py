@@ -1,5 +1,5 @@
 from __future__ import print_function
-import NP 
+import NamePending 
 
 def setup_natives(env):
 	natives = [
@@ -13,11 +13,11 @@ def setup_natives(env):
 			},
 			{
 			'name':'str',
-                        'func':(lambda x='':{"type": "str", "value": str(stringify(x))})
+			'func':(lambda x='':str(x))
 			},
 			{
 			'name':'int',
-                        'func':(lambda x:{"type": "num", "value": int(stringify(x))})
+			'func':(lambda x:int(x))
 			},
 			{
 			'name':'float',
@@ -34,17 +34,15 @@ def setup_natives(env):
 def convert(value):
 	return {'string': value}
 def stringify(value):
-        if(isinstance(value, (str))):
-                return value
-	if (value['type'] == 'list'):
+	if isinstance(value, (list, tuple)):
 		a = []
-		for x in value['value']:
+		for x in value:
 			a.append(x['value'])
 		return a
 	elif value == None:
 		return 'null'
 	else:
 		try:
-			return (value['value'])
+			return value['value']
 		except:
 			return value

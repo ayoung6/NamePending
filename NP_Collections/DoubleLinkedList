@@ -1,0 +1,57 @@
+DoubleLinkedList = lambda(){
+	dll = ['__HEAD__', null, null];
+	return dll;
+};
+DoubleLinkedNode = lambda(value){
+	return [value, null, null];
+};
+RemoveNodeDLL = lambda(dll, link){
+	let delve(count = 0, node = dll[1]){
+		if node[1] == null then{
+			return dll;
+		};
+		if ((count + 1) == link) then{
+			println('Remove Condition');
+			temp = node[1];
+			node[1] = temp[1];
+			temp[2] = node[2];
+			return dll;
+		};
+		delve(count + 1, node[1]);
+	};
+};
+GetValAtDLL = lambda(dll, link){
+	let delve(layer = link) 
+		if layer >= 1 then {
+			dll = dll[1];
+			delve(layer - 1);
+		};
+	node = dll[1];
+	return node[0];
+};
+AddToHeadDLL = lambda(dll, value){
+	node = DoubleLinkedNode(value);
+	node[1] = dll[1];
+	if dll[1] != null then{
+		dll[1][2] = node;
+	};
+	dll[1] = node;
+	return dll;
+};
+AddToTailDLL = lambda(dll, value){
+	node = DoubleLinkedNode(value);
+	node[2] = dll[2];
+	if dll[2] != null then{
+		dll[2][1] = node;
+	};
+	dll[2] = node;
+	return dll;
+};
+PrintDoubleLinkedList = lambda(dll){
+	let loop(list = dll[1])
+		if list[1] == null then println(list[0]) else{
+			print(list[0]);
+			print(' <-> ');
+			loop(list[1]);
+		};
+};
