@@ -44,7 +44,7 @@ def evaluation(exp, env):
 			for x in exp['value']:
 				x = evaluation(x, env)
 				lst.append(var['value'][x['value']])
-			return lst
+			return {'type': 'list', 'value': lst}
 	elif exptype == 'var':
 		try:
 			return evaluation(env.get(exp['value']), env)
