@@ -1,44 +1,58 @@
 LinkedList = lambda(){
-	ll = ['__HEAD__', null];
-	return ll;
+  ll = __Node('__Head__');
+  return ll;
 };
+
 __Node = lambda(value){
-	return [value, null];
+  return [value, null];
 };
-RemoveNode = lambda(ll, link){
-	let delve(count = 0, node = ll){
-		if node[1] == null then{
-			return ll;
-		};
-		if ((count + 1) == link) then{
-			println('Remove Condition');
-			temp = node[1];
-			node[1] = temp[1];
-			return ll;
-		};
-		delve(count + 1, node[1]);
-	};
+
+__IsEmpty = lambda(ll){
+  return ll[1] == null;
 };
+
+RemoveNodeAt = lambda(ll, link){
+  return if (__IsEmpty(ll) == false) then{
+    return let delve(next = ll[1], i = 0){
+      if ((i + 1) < link) then{
+        delve(next[1], (i + 1));
+      } else {
+        removed = next[1];
+        next[1] = removed[1];
+        return removed[0];
+      };
+    };
+  };
+};
+
 GetValAt = lambda(ll, link){
-	let delve(layer = link) 
-		if layer >= 1 then {
-			ll = ll[1];
-			delve(layer - 1);
-		};
-	node = ll[1];
-	return node[0];
+  return if (__IsEmpty(ll) == false) then{
+    return let delve(next = ll[1], i = 0){
+      if (i < link) then{
+        delve(next[1], (i + 1));
+      } else {
+        return next[0];
+      };
+    };
+  };
 };
+
 AddToHead = lambda(ll, value){
-	node = __Node(value);
-	node[1] = ll[1];
-	ll[1] = node;
-	return ll;
+  node = __Node(value);
+  node[1] = ll[1];
+  ll[1] = node;
+  return ll;
 };
+
 PrintLinkedList = lambda(ll){
-	let loop(list = ll[1])
-		if list[1] == null then println(list[0]) else{
-			print(list[0]);
-			print(' -> ');
-			loop(list[1]);
-		};
+  if (ll[1] != null) then {
+    let delve(link = ll[1]){
+      print(link[0]);
+      if (link[1] != null) then {
+        print(" -> ");
+        delve(link[1]);
+      };
+    };
+  println();
+  };
 };

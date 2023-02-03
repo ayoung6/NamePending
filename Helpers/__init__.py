@@ -43,7 +43,7 @@ def evaluation(exp, env):
 			var = env.get(exp['name'])
 			for x in exp['value']:
 				x = evaluation(x, env)
-				lst.append(var[x['value']])
+				lst.append(var['value'][x['value']])
 			return lst
 	elif exptype == 'var':
 		try:
@@ -79,7 +79,7 @@ def evaluation(exp, env):
 		try:
 			return evaluation(exp['else'], env)
 		except:
-			return False
+			return {'type': 'bool', 'value': False}
 	elif exptype == 'prog':
 		val = False
 		for var in exp['prog']:
@@ -97,12 +97,19 @@ def evaluation(exp, env):
 def apply_op(op, a, b):
 	def build(t, val):
 		return {'type': t, 'value': val}
+	def bool(x):
+		try:
+			x = x['value']
+		except:
+			pass
+		return x
+		raise Exception('%s is not a boolean' % x)
 	def num(x):
 		try:
 			x = x['value']
 		except:
 			pass
-		if isinstance(x, (int, long)) or isinstance(x, float):
+		if isinstance(x, int) or isinstance(x, float):
 			return x
 		raise Exception('%s is not a number' % x)
 	def div(x):
@@ -113,7 +120,7 @@ def apply_op(op, a, b):
 		if num(x) == 0: 
 			StreamReader.error('Cannot divide by zero') 
 		else: return x
-	if a['type'] == 'list' and op == '*':
+	if isinstance(a, dict) and a['type'] == 'list' and op == '*':
 		if len(a['value']) == 0:
 			return {'type': 'list', 'value': [{'type': 'null', 'value': 'null'}]*num(b)}
 		return {'type': 'list', 'value': a['value']*num(b)}
@@ -122,14 +129,14 @@ def apply_op(op, a, b):
 	elif op == '*' : return build('num', num(a) * num(b))
 	elif op == '/' : return build('num', num(a) / div(b))
 	elif op == '%' : return build('num', num(a) % div(b))
-	elif op == '&&': return build('bool', a != False and b)
-	elif op == '||': return build('bool', a if a != False else b)
+	elif op == '&&': return build('bool', bool(a) and bool(b))
+	elif op == '||': return build('bool', bool(a) if a != False else bool(b))
 	elif op == '<' : return build('bool', num(a) < num(b))
 	elif op == '>' : return build('bool', num(a) > num(b))
 	elif op == '<=': return build('bool', num(a) <= num(b))
 	elif op == '>=': return build('bool', num(a) >= num(b))
-	elif op == '==': return build('bool', a == b)
-	elif op == '!=': return build('bool', a != b)
+	elif op == '==': return build('bool', bool(a) == bool(b))
+	elif op == '!=': return build('bool', bool(a) != bool(b))
 	StreamReader.error("Cannot apply aperator %s" % op)
 
 def make_lambda(env, exp):

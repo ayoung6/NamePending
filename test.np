@@ -1,5 +1,5 @@
 #imports
-import Collections;
+import "NP_Collections/LinkedList";
 
 #consts
 const TESTNUMBER = 5;
@@ -10,7 +10,9 @@ sum_func = lambda(a, b){
 };
 
 main = lambda(arglist, arglength){
+  println("Arglist");
   println(arglist);
+  println("Arglength");
   println(arglength);
 
   #if then else with args
@@ -48,10 +50,10 @@ main = lambda(arglist, arglength){
     #import + linked list
     ll = LinkedList();
     let loop(i = 0){
-      AddToHead(ll, arglist[i]);
+      ll = AddToHead(ll, arglist[i]);
       i = i + 1;
       if i < arglength then{
-        loop(i, ll);
+        loop(i);
       };
     };
 

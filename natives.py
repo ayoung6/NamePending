@@ -17,11 +17,11 @@ def setup_natives(env):
 			},
 			{
 			'name':'int',
-			'func':(lambda x:int(x))
+			'func':(lambda x:int(x['value']))
 			},
 			{
 			'name':'float',
-			'func':(lambda x:float(x))
+			'func':(lambda x:float(x['value']))
 			},
 			{
 			'name':'input',
@@ -34,9 +34,10 @@ def setup_natives(env):
 def convert(value):
 	return {'string': value}
 def stringify(value):
-	if isinstance(value, (list, tuple)):
+	if (type(value) != dict): return value;
+	if value['type'] == 'list':
 		a = []
-		for x in value:
+		for x in value['value']:
 			a.append(x['value'])
 		return a
 	elif value == None:
