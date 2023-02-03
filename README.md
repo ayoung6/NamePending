@@ -3,7 +3,7 @@ A quick selfstudy into how language works
 
 Runs off a main function
 
-run the test file with `python2.7 NP.py test.np -r -a "Hello World!" 10 1`
+run the test file with `python3 NamePending.py test.np -r -a "Hello World!" 10 1`
 
 ## Hello World!
 A hello world program is simple enough. Create a main lambda and call the print line function
